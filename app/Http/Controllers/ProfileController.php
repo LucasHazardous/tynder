@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -30,6 +31,16 @@ class ProfileController extends Controller
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
+        }
+
+        if(!empty($request->file('avatarfile'))) {
+            $new_avatar = Storage::disk("public")->put("avatar", $request->file('avatarfile'));
+
+            if($previous_avatar = $request->user()->avatar) {
+                Storage::disk("public")->delete($previous_avatar);
+            }
+
+            $request->user()->avatar = $new_avatar;
         }
 
         $request->user()->save();

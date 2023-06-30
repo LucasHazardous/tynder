@@ -10,4 +10,10 @@ class Relation extends Model
     use HasFactory;
 
     protected $table = 'relations';
+
+    protected $fillable = [
+        'creator_id',
+        'target_id',
+        'likes',
+    ];
 }

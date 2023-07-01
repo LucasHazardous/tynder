@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MessageRequest;
 use App\Models\Message;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -44,7 +46,19 @@ class ChatController extends Controller
         })->orderBy("created_at")->get();
 
         return view("chat")->with([
-            "messages" => $messages
+            "messages" => $messages,
+            "receiver" => $connectedUserId
         ]);
+    }
+
+    public function sendMessage(MessageRequest $request): RedirectResponse
+    {
+        Message::create([
+            "sender" => $request->user()->id,
+            "receiver" => $request->receiver,
+            "content" => $request->content
+        ]);
+
+        return back();
     }
 }

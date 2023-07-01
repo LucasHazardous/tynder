@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/chat', [ChatController::class, "getConnectedUsers"])->name('chat');
     Route::get('/chat/{connectedUserId}', [ChatController::class, "getMessagesWith"])->name('chat.messages');
+    Route::post('/chat', [ChatController::class, "sendMessage"])->name('chat.message.send');
 });
 
 require __DIR__.'/auth.php';

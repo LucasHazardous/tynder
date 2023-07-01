@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::post("/relation", [DashboardController::class, 'createRelation'])->name('createRelation');
 
     Route::get('/chat', [ChatController::class, "getConnectedUsers"])->name('chat');
+    Route::get('/chat/{connectedUserId}', [ChatController::class, "getMessagesWith"])->name('chat.messages');
 });
 
 require __DIR__.'/auth.php';

@@ -18,11 +18,13 @@ class ChatController extends Controller
         $users = User::whereIn("id", function($query) use ($userId) {
             $query->select("creator_id")
             ->from("relations")
-            ->where("target_id", $userId);
+            ->where("target_id", $userId)
+            ->where("likes", 1);
         })->whereIn("id", function($query) use ($userId) {
             $query->select("target_id")
             ->from("relations")
-            ->where("creator_id", $userId);
+            ->where("creator_id", $userId)
+            ->where("likes", 1);
         })
         ->get();
 

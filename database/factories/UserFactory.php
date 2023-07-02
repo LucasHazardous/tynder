@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
@@ -17,8 +19,21 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $imgData = json_decode(file_get_contents("https://nekos.best/api/v2/waifu"));
+        $url = $imgData->results[0]->url;
+
+        $info = pathinfo($url);
+        $contents = file_get_contents($url);
+        $file = '/tmp/' . $info['basename'];
+        file_put_contents($file, $contents);
+        $uploaded_file = new UploadedFile($file, $info['basename']);
+        
+        $avatar = Storage::disk("public")->put('avatar', $uploaded_file);
+        
         return [
-            'name' => fake()->name(),
+            'name' => fake()->firstName('female'),
+            'avatar' => $avatar,
+            'description' => $imgData->results[0]->source_url,
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

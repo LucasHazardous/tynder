@@ -16,8 +16,8 @@ return new class extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('creator_id');
             $table->unsignedBigInteger('target_id');
-            $table->foreign("creator_id")->references("id")->on("users");
-            $table->foreign("target_id")->references("id")->on("users");
+            $table->foreign("creator_id")->references("id")->on("users")->cascadeOnDelete();
+            $table->foreign("target_id")->references("id")->on("users")->cascadeOnDelete();
             $table->boolean("likes");
         });
     }

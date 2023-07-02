@@ -30,6 +30,12 @@ class DashboardController extends Controller
 
     public function createRelation(RelationRequest $request): RedirectResponse
     {
+        $potentialRelation = Relation::where("creator_id", $request->user()->id)->where("target_id", $request->target_id)->first();
+        
+        if(!is_null($potentialRelation)) {
+            return abort(403);
+        }
+
         Relation::create([
             "creator_id" => $request->user()->id,
             "target_id" => $request->target_id,

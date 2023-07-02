@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Message;
+use App\Models\Relation;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +14,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory(20)->create();
+        for($i = 0; $i < 30; $i++) {
+            Relation::factory(1)->create();
+        }
+        try {
+            Message::factory(20)->create();
+        } catch (\Throwable $th) {
+            error_log("Messages can not be generated.");
+        }
     }
 }

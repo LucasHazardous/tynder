@@ -11,7 +11,7 @@
             @if(empty($messages))
                 @foreach ($users as $user)
                 <a href="{{route('chat')}}/{{$user->id}}">
-                    <div class="p-3 border-solid border-2 border-indigo-800 rounded-md mb-3">
+                    <div class="p-3 border-solid border-2 border-red-800 rounded-md mb-3">
                         <img class="inline-block mr-4 rounded-full" src="storage/{{$user->avatar}}" alt="user avatar" width="40">
                         <p class="inline-block text-lg font-medium text-gray-900 dark:text-gray-100">{{$user->name}}</p>
                     </div>
@@ -19,11 +19,11 @@
                 @endforeach
             @else
                 @foreach ($messages as $message)
-                <div class="p-3 border-solid border-2 {{ $message->sender === auth()->user()->id ? 'border-indigo-800' : 'border-indigo-500' }} rounded-md mb-3">
+                <div class="p-3 border-solid border-2 {{ $message->sender === auth()->user()->id ? 'border-red-800' : 'border-red-500' }} rounded-md mb-3">
                     <p class="inline-block text-lg font-medium text-gray-900 dark:text-gray-100">{{$message->content}}</p>
                 </div>
                 @endforeach
-                <div class="p-3 border-solid border-2 border-indigo-800 rounded-md mb-3">
+                <div class="p-3 border-solid border-2 border-red-800 rounded-md mb-3">
                     <form action="{{route('chat.message.send')}}" method="post">
                         @csrf
                         <input type="hidden" name="receiver" id="receiver" value="{{$receiver}}">

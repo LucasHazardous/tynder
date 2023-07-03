@@ -15,7 +15,8 @@ class ChatController extends Controller
     public function getConnectedUsers(Request $request): View
     {
         $userId = $request->user()->id;
-        $users = User::whereIn("id", function($query) use ($userId) {
+        $users = User::select('id', 'name', 'avatar')
+        ->whereIn("id", function($query) use ($userId) {
             $query->select("creator_id")
             ->from("relations")
             ->where("target_id", $userId)

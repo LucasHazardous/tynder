@@ -15,7 +15,8 @@ class DashboardController extends Controller
     {
         $userId = $request->user()->id;
 
-        $userWithoutRelation = User::whereNotIn('id', function ($query) use ($userId) {
+        $userWithoutRelation = User::select('id', 'name', 'avatar', 'description', 'created_at')
+        ->whereNotIn('id', function ($query) use ($userId) {
             $query->select('target_id')
                 ->from('relations')
                 ->where('creator_id', $userId);

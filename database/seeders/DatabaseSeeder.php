@@ -14,12 +14,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->command->getOutput()->progressStart(301);
+        
         User::factory(20)->create();
-        for($i = 0; $i < 30; $i++) {
+        $this->command->getOutput()->progressAdvance();
+
+        for($i = 0; $i < 300; $i++) {
             Relation::factory(1)->create();
+            $this->command->getOutput()->progressAdvance();
         }
+
+        $this->command->getOutput()->progressFinish();
+
+        error_log("Attempting to generate messsages.");
+
         try {
             Message::factory(20)->create();
+            error_log("Successfully generated messsages.");
         } catch (\Throwable $th) {
             error_log("Messages can not be generated.");
         }

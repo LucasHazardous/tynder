@@ -32,19 +32,25 @@ CREATE DATABASE tynder;
 php artisan migrate
 ```
 
-6. Create storage symlink:
+6. Create application encryption key:
+
+```sh
+php artisan key:generate
+```
+
+7. Create storage symlink:
 
 ```sh
 php artisan storage:link
 ```
 
-7. Run database seeder:
+8. Run database seeder:
 
 ```sh
 php artisan db:seed
 ```
 
-8. Serve:
+9. Serve:
 
 ```sh
 php artisan serve

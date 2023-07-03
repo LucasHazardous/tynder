@@ -4,6 +4,12 @@ Tynder is a friend-making website that is based on the idea of connecting indivi
 
 # Preview
 
+<img align="left" src="./img/welcome.png" alt="welcome page" width="300">
+<img src="./img/profile.png" alt="profile page" width="300">
+
+<img align="left"  src="./img/meet.png" alt="meet page" width="300">
+<img src="./img/message.png" alt="message page" width="300">
+
 # Dev Setup
 
 1. Install Composer dependencies:

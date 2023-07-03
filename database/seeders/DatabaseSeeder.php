@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->command->getOutput()->progressStart(301);
         
-        User::factory(20)->create();
+        User::factory(20)->downloadAvatar()->create();
         $this->command->getOutput()->progressAdvance();
 
         for($i = 0; $i < 300; $i++) {

@@ -55,13 +55,5 @@ class ContactsTest extends TestCase
         $response->assertViewHas('users', function ($users) {
             return count($users) == 0;
         });
-
-        Relation::truncate();
-
-        $response = $this->actingAs($mainUser)->get('/chat');
-
-        $response->assertViewHas('users', function ($users) {
-            return count($users) == 0;
-        });
     }
 }

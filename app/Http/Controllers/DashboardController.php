@@ -33,7 +33,7 @@ class DashboardController extends Controller
     {
         $potentialRelation = Relation::where("creator_id", $request->user()->id)->where("target_id", $request->target_id)->first();
         
-        if(!is_null($potentialRelation)) {
+        if(!is_null($potentialRelation) || $request->user()->id == $request->target_id) {
             return abort(403);
         }
 

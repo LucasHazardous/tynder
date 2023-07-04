@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ChatController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -28,9 +28,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'recommend'])->name('dashboard');
     Route::post("/relation", [DashboardController::class, 'createRelation'])->name('createRelation');
 
-    Route::get('/chat', [ChatController::class, "getConnectedUsers"])->name('chat');
-    Route::get('/chat/{connectedUserId}', [ChatController::class, "getMessagesWith"])->name('chat.messages');
-    Route::post('/chat', [ChatController::class, "sendMessage"])->name('chat.message.send');
+    Route::get('/chat', [MessageController::class, "getConnectedUsers"])->name('chat');
+    Route::get('/chat/{connectedUserId}', [MessageController::class, "getMessagesWith"])->name('chat.messages');
+    Route::post('/chat', [MessageController::class, "sendMessage"])->name('chat.message.send');
 });
 
 require __DIR__.'/auth.php';

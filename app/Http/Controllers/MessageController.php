@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class ChatController extends Controller
+class MessageController extends Controller
 {
     public function getConnectedUsers(Request $request): View
     {

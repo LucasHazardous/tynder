@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MessageRequest;
+use App\Http\Service\RelationService;
 use App\Models\Message;
-use App\Models\Relation;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -38,6 +38,10 @@ class MessageController extends Controller
     {
         $currentUserId = $request->user()->id;
 
+        if(!RelationService::currentUserIsConnectedWith($request, $connectedUserId)) {
+            return abort(403);
+        }
+
         $messages = Message::where(function ($query) use ($connectedUserId) {
             $query
             ->where("sender", $connectedUserId)
@@ -60,17 +64,7 @@ class MessageController extends Controller
         $sender = $request->user()->id;
         $receiver = $request->receiver;
 
-        $relation1 = Relation::where("creator_id", $sender)
-        ->where("target_id", $receiver)
-        ->where("likes", 1)
-        ->first();
-
-        $relation2 = Relation::where("creator_id", $receiver)
-        ->where("target_id", $sender)
-        ->where("likes", 1)
-        ->first();
-
-        if(is_null($relation1) || is_null($relation2)) {
+        if(!RelationService::currentUserIsConnectedWith($request, $receiver)) {
             return abort(403);
         }
 

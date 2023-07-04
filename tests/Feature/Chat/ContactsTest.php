@@ -10,9 +10,7 @@ use Tests\TestCase;
 class ContactsTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     */
+
     public function test_get_connected_user_to_message_with(): void
     {
         $otherUser = User::factory()->create();

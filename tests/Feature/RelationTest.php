@@ -39,4 +39,13 @@ class RelationTest extends TestCase
     
         $response->assertForbidden();
     }
+
+    public function test_create_relation_with_yourself(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post('/relation', ['target_id' => $user->id, 'likes' => 1]);
+    
+        $response->assertForbidden();
+    }
 }

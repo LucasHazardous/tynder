@@ -9,7 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class RelationController extends Controller
 {
     public function recommend(Request $request): View
     {

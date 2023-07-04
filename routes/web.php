@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\MessageController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RelationController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,8 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/dashboard', [DashboardController::class, 'recommend'])->name('dashboard');
-    Route::post("/relation", [DashboardController::class, 'createRelation'])->name('createRelation');
+    Route::get('/dashboard', [RelationController::class, 'recommend'])->name('dashboard');
+    Route::post("/relation", [RelationController::class, 'createRelation'])->name('createRelation');
 
     Route::get('/chat', [MessageController::class, "getConnectedUsers"])->name('chat');
     Route::get('/chat/{connectedUserId}', [MessageController::class, "getMessagesWith"])->name('chat.messages');

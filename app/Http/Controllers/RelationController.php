@@ -15,7 +15,7 @@ class RelationController extends Controller
     {
         $userId = $request->user()->id;
 
-        $userWithoutRelation = User::select('id', 'name', 'avatar', 'description', 'created_at')
+        $userWithoutRelation = User::select('id', 'name', 'avatar', 'description', 'created_at', 'email_verified_at')
         ->whereNotIn('id', function ($query) use ($userId) {
             $query->select('target_id')
                 ->from('relations')

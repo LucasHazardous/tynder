@@ -4,21 +4,29 @@
             Wow, you reviewed everyone...
         </p>
     @else
-        <header class="w-[300px]">
-            <img src="/storage/{{$user->avatar}}" alt="user avatar" class="rounded max-w-[100%]">
-
-            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 inline-block">
-                {{$user->name}}
-            </h2>
-
-            <p class="mt-1 ml-1 inline-block text-xs text-gray-600 dark:text-gray-400">
-                Joined {{$user->created_at->year}}
-            </p>
-
-            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                {{$user->description}}
-            </p>
-        </header>
+        <div class="max-w-sm rounded overflow-hidden shadow-2xl">
+            <img class="w-full" src="/storage/{{$user->avatar}}" alt="user avatar">
+            <div class="px-6 py-4">
+                <div class="font-bold text-xl mb-2 text-gray-900 dark:text-gray-100">{{$user->name}}</div>
+                <p class="text-gray-700 text-base text-gray-600 dark:text-gray-400">
+                    {{$user->description}}
+                </p>
+            </div>
+            <div class="px-6 pt-4 pb-2">
+                <span class="inline-block bg-red-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Joined {{$user->created_at->year}}</span>
+                <span class="inline-block bg-red-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{is_null($user->email_verified_at) ? 'Unverified' : 'Verified'}}</span>
+            </div>
+            <div class="px-6 pt-4 pb-2">
+                <x-secondary-button
+                    x-data=""
+                    onclick="makeGoodRelation(1);"
+                >{{ __('Like') }}</x-secondary-button>
+                <x-secondary-button
+                    x-data=""
+                    onclick="makeGoodRelation(0);"
+                >{{ __('Dislike') }}</x-secondary-button>
+            </div>
+        </div>
 
         <form class="hidden" id="relationForm" method="post" action="{{route('createRelation')}}">
             @csrf
@@ -32,14 +40,5 @@
                 document.getElementById('relationForm').submit();
             }
         </script>
-
-        <x-secondary-button
-            x-data=""
-            onclick="makeGoodRelation(1);"
-        >{{ __('Like') }}</x-secondary-button>
-        <x-secondary-button
-            x-data=""
-            onclick="makeGoodRelation(0);"
-        >{{ __('Dislike') }}</x-secondary-button>
     @endif
 </section>

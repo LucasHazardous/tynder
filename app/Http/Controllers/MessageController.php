@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewMessage;
 use App\Http\Requests\MessageRequest;
 use App\Http\Service\RelationService;
 use App\Models\Message;
@@ -73,6 +74,8 @@ class MessageController extends Controller
             "receiver" => $receiver,
             "content" => $request->content
         ]);
+
+        NewMessage::dispatch($request->content, $receiver);
 
         return back();
     }

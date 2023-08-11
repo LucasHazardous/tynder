@@ -26,37 +26,31 @@ npm i
 
 3. Create an **.env** file and copy **.env.example** contents into it, change database credentials if needed.
 
-4. Create MySQL database:
-
-```sql
-CREATE DATABASE tynder;
-```
-
-5. Run database migrations:
+4. Run database migrations:
 
 ```sh
 php artisan migrate
 ```
 
-6. Create application encryption key:
+5. Create application encryption key:
 
 ```sh
 php artisan key:generate
 ```
 
-7. Create storage symlink:
+6. Create storage symlink:
 
 ```sh
 php artisan storage:link
 ```
 
-8. Run database seeder:
+7. Run database seeder:
 
 ```sh
 php artisan db:seed
 ```
 
-9. Serve:
+8. Serve:
 
 ```sh
 php artisan serve
@@ -66,4 +60,10 @@ and simultaneously in another terminal:
 
 ```sh
 npm run dev
+```
+
+and run this too:
+
+```sh
+php artisan websockets:serve
 ```

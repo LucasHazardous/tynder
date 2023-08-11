@@ -18,11 +18,13 @@
                 </a>
                 @endforeach
             @else
-                @foreach ($messages as $message)
-                <div class="p-3 border-solid border-2 {{ $message->sender === auth()->user()->id ? 'border-red-800' : 'border-red-500' }} rounded-md mb-3">
-                    <p class="inline-block text-lg font-medium text-gray-900 dark:text-gray-100">{{$message->content}}</p>
+                <div id="message_list">
+                    @foreach ($messages as $message)
+                    <div class="p-3 border-solid border-2 {{ $message->sender === auth()->user()->id ? 'border-red-800' : 'border-red-300' }} rounded-md mb-3">
+                        <p class="inline-block text-lg font-medium text-gray-900 dark:text-gray-100">{{$message->content}}</p>
+                    </div>
+                    @endforeach
                 </div>
-                @endforeach
                 <div class="p-3 border-solid border-2 border-red-800 rounded-md mb-3">
                     <form action="{{route('chat.message.send')}}" method="post">
                         @csrf
@@ -36,3 +38,15 @@
         </div>
     </div>
 </x-app-layout>
+
+<script type="module" defer>
+    const messages = document.getElementById("message_list");
+    Echo.private("messages.{{ auth()->user()->id }}")
+        .listen('NewMessage', (e) => {
+            messages.innerHTML += `
+            <div class="p-3 border-solid border-2 border-red-300 rounded-md mb-3">
+                <p class="inline-block text-lg font-medium text-gray-900 dark:text-gray-100">${e.message}</p>
+            </div>
+            `;
+    });
+</script>
